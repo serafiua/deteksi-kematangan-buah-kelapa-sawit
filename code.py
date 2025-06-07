@@ -102,9 +102,9 @@ def klasifikasi_kematangan(rgb, hsv):
 # Streamlit UI
 st.set_page_config(page_title="Deteksi Kematangan Kelapa Sawit", layout="centered")
 st.title("🌴 Deteksi Kematangan Buah Kelapa Sawit")
-st.write("Upload gambar buah kelapa sawit, dan sistem akan menghitung fitur warna serta klasifikasinya.")
+st.write("Upload gambar buah kelapa sawit, dan sistem akan menghitung fitur warna serta klasifikasi kematangannya.")
 
-uploaded_file = st.file_uploader("📸 Upload gambar buah kelapa sawit", type=["jpg", "jpeg", "png"])
+uploaded_file = st.file_uploader("Upload gambar buah kelapa sawit", type=["jpg", "jpeg", "png"])
 
 if uploaded_file is not None:
     image = Image.open(uploaded_file).convert("RGB")
@@ -133,11 +133,9 @@ if uploaded_file is not None:
             'props': [('text-align', 'center')]
         }])
     
-    st.subheader("📊 Ekstraksi Fitur Warna")
+    st.subheader("Ekstraksi Fitur Warna")
     st.dataframe(styled_df, use_container_width=True)
 
-
-
-    st.subheader("📈 Klasifikasi Tingkat Kematangan")
+    st.subheader("Klasifikasi Tingkat Kematangan")
     hasil = klasifikasi_kematangan(mean_rgb, mean_hsv)
     st.success(f"Hasil klasifikasi: **{hasil}**")
