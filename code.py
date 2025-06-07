@@ -3,6 +3,7 @@ from PIL import Image
 import numpy as np
 import cv2
 from scipy.spatial.distance import euclidean
+import pandas as pd
 
 thresholds = {
     "Belum Masak": {
@@ -114,9 +115,19 @@ if uploaded_file is not None:
 
     mean_rgb, mean_hsv = extract_features(img_bgr)
 
+
+    df_fitur = pd.DataFrame([{
+        "R": round(mean_rgb[0], 3),
+        "G": round(mean_rgb[1], 3),
+        "B": round(mean_rgb[2], 3),
+        "H": round(mean_hsv[0], 3),
+        "S": round(mean_hsv[1], 3),
+        "V": round(mean_hsv[2], 3)
+    }])
+    
     st.subheader("📊 Ekstraksi Fitur Warna")
-    st.write("Mean RGB (ter-normalisasi):", [round(x, 3) for x in mean_rgb])
-    st.write("Mean HSV (ter-normalisasi):", [round(x, 3) for x in mean_hsv])
+    st.dataframe(df_fitur.style.format(precision=3), use_container_width=True)
+
 
     st.subheader("📈 Klasifikasi Tingkat Kematangan")
     hasil = klasifikasi_kematangan(mean_rgb, mean_hsv)
