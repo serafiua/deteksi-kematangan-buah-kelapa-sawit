@@ -125,8 +125,17 @@ if uploaded_file is not None:
         "V": round(mean_hsv[2], 3)
     }])
     
+    styled_df = df_fitur.style\
+        .format(precision=3)\
+        .set_properties(**{'text-align': 'center'})\
+        .set_table_styles([{
+            'selector': 'th',
+            'props': [('text-align', 'center')]
+        }])
+    
     st.subheader("📊 Ekstraksi Fitur Warna")
-    st.dataframe(df_fitur.style.format(precision=3), use_container_width=True)
+    st.dataframe(styled_df, use_container_width=True)
+
 
 
     st.subheader("📈 Klasifikasi Tingkat Kematangan")
