@@ -5,7 +5,6 @@ import cv2
 from scipy.spatial.distance import euclidean
 import torch
 
-# Threshold klasifikasi (sama kayak kode kamu)
 thresholds = {
     "Belum Masak": {
         "R_norm": 0.331002,
@@ -100,7 +99,6 @@ def klasifikasi_kematangan(rgb, hsv):
             kelas_terdekat = kelas
     return kelas_terdekat
 
-# Load YOLOv5s model (pastikan weights sudah ada di folder atau path)
 @st.cache_resource(show_spinner=False)
 def load_model():
     model = torch.hub.load('ultralytics/yolov5', 'yolov5s', pretrained=True)
@@ -111,7 +109,6 @@ def load_model():
 
 model = load_model()
 
-# Streamlit UI
 st.set_page_config(page_title="Deteksi Kematangan Kelapa Sawit", layout="centered")
 st.title("🌴 Deteksi Kematangan Buah Kelapa Sawit dengan YOLOv5s")
 
